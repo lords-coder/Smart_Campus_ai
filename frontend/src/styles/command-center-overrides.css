@@ -1,0 +1,210 @@
+/**
+ * Additions to the Command Center design layer.
+ *
+ * `command-center.css` is generated verbatim from the prototype, so anything the
+ * integration introduced - a real class list, cards that link instead of
+ * reporting "unavailable" - is styled here and inherits the prototype's tokens
+ * (--surface, --border, --sc-accent, ...) from the same .command-center-surface
+ * root. Kept in its own file so regenerating the prototype CSS never discards
+ * it.
+ *
+ * The surface's page padding and typography are part of the global spacing
+ * system and live in app-shell-overrides.css, alongside .page-surface.
+ */
+
+.snapshot-list {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.snapshot-list li {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--surface-inset);
+}
+
+.snapshot-list__time {
+  flex: 0 0 auto;
+  min-width: 104px;
+  color: var(--sc-accent);
+  font-size: 11px;
+  font-weight: 680;
+  letter-spacing: -0.01em;
+}
+
+.snapshot-list__body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.snapshot-list__body strong {
+  overflow: hidden;
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 660;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.snapshot-list__body small {
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* A card that is a link, rather than a static panel. */
+a.recommendation-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 180ms var(--ease-out), transform 180ms var(--ease-out);
+}
+
+a.recommendation-card:hover,
+a.recommendation-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--rec-accent);
+}
+
+a.recommendation-card:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* "Live" / "ML model" / "Degraded" badge: the prototype only ever said
+   "Not connected", so the states are colour-coded here. */
+.command-center-surface .connection-badge[data-state="degraded"] {
+  background: rgba(255, 190, 92, 0.14);
+  color: #ffbe5c;
+}
+
+.summary-card__value[data-degraded="true"] {
+  color: var(--text-muted);
+}
+
+.transport-insight {
+  margin-bottom: 33px;
+}
+
+.timetable-card__footer a {
+  color: var(--sc-accent);
+  text-decoration: none;
+}
+
+.timetable-card__footer a:hover,
+.timetable-card__footer a:focus-visible {
+  text-decoration: underline;
+}
+
+.command-center-surface .connection-state__copy strong[data-tracking-status] {
+  color: var(--text-primary);
+}
+
+/* Quick actions, carried over from the original dashboard so the swap to the
+   command-center surface does not lose the shortcut grid. */
+.quick-actions {
+  margin: 0 0 33px;
+}
+
+.quick-actions h2 {
+  margin: 0 0 12px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 680;
+  /* Deliberately not uppercased: `text-transform` changes what `innerText`
+     reports, and the Phase 1 suite matches the literal "Quick actions". */
+}
+
+.quick-actions__grid {
+  display: grid;
+  gap: 10px;
+  /* Wide enough for the icon, the label, a readable description and the call to
+     action on one row: at 210px the description was truncated to a stub. */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.quick-action {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px 13px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--surface);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+
+.quick-action:hover,
+.quick-action:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(55, 215, 209, 0.42);
+}
+
+.quick-action:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.quick-action__icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--sc-accent-soft);
+  color: var(--sc-accent);
+}
+
+.quick-action__body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.quick-action__body strong {
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 660;
+}
+
+.quick-action__body small {
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quick-action__cta {
+  margin-left: auto;
+  flex: 0 0 auto;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  background: var(--sc-accent-soft);
+  color: var(--sc-accent);
+  font-size: 10px;
+  font-weight: 660;
+  white-space: nowrap;
+}

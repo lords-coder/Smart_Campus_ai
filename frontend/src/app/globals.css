@@ -1,0 +1,106 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* The prototype's dark palette is the application's palette. The shadcn
+   semantic tokens are re-pointed at it, and the shades of Tailwind's own
+   palette that the phase components use directly are re-mapped, so no light
+   surface survives the switch. Must be imported after Tailwind's theme. */
+@import "../styles/theme-dark.css";
+
+/* Command Center design layer, integrated from the visual prototype at
+   C:\test\tt\frontend. Every selector is anchored under .command-center-surface,
+   so the prototype's dark palette applies to the Command Center only. */
+@import "../styles/command-center.css";
+@import "../styles/command-center-overrides.css";
+
+/* The global shell: the same prototype's sidebar, header, drawer and page
+   container, plus the integration's own additions. */
+@import "../styles/app-shell.css";
+@import "../styles/app-shell-overrides.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/**
+ * The shell paints the application background; the pages that sit outside it -
+ * sign in, certificate verification, parent activation - are not part of the
+ * authenticated product, so they get the same background as a standalone
+ * surface rather than inheriting it from a shell they do not have.
+ */
+.auth-surface {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  /* The brand mark's own rule reads the prototype's --blue token, which the
+     shell declares on its root; a surface outside the shell needs it too. */
+  --blue: #79b7ff;
+  background:
+    radial-gradient(ellipse at 91% 4%, rgba(36, 99, 122, 0.11), transparent 30rem),
+    radial-gradient(ellipse at 47% 96%, rgba(32, 86, 117, 0.08), transparent 36rem),
+    var(--background);
+}
+
+/* The brand mark sits outside the shell, so the prototype's own sizing (which
+   assumes the sidebar) is scaled here rather than restated. */
+.auth-surface__mark {
+  display: inline-flex;
+  transform: scale(1.6);
+}

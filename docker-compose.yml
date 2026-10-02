@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: smartcampus-pg
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: smartcampus
+      POSTGRES_PASSWORD: smartcampus_dev
+      POSTGRES_DB: smartcampus
+    ports:
+      - "5432:5432"
+    volumes:
+      - smartcampus_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U smartcampus -d smartcampus"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  ml-service:
+    build: ./ml
+    container_name: smartcampus-ml-service
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      MODEL_PATH: /app/ml/models/performance_model.joblib
+      METADATA_PATH: /app/ml/models/performance_model_metadata.json
+    depends_on:
+      - postgres
+
+# The backend runs on the host for local development (npm run dev). Point it at
+# the compose service name so the same setting works from inside a container:
+#   ML_SERVICE_URL=http://ml-service:8001   (Docker network)
+#   ML_SERVICE_URL=http://localhost:8001    (backend on the host)
+
+volumes:
+  smartcampus_pgdata:

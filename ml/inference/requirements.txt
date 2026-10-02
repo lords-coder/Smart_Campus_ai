@@ -1,0 +1,9 @@
+# Dependencies are not needed to load or serve the artifact, so the image is
+# built without them. Install with:
+#   pip install -r requirements.txt -r inference/requirements.txt
+fastapi>=0.115.0
+uvicorn>=0.32.0
+pydantic>=2.10.0
+joblib>=1.4.0
+scikit-learn>=1.5.0
+numpy>=1.26.0

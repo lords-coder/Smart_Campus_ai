@@ -1,0 +1,9 @@
+# Normalise line endings: store LF in the repository, check out per platform.
+* text=auto eol=lf
+
+# Binary assets that must never be touched.
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.pdf binary
+*.joblib binary
