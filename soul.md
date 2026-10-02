@@ -1037,6 +1037,11 @@ SUPER_ADMIN sections. The verification codes never appear in the bundle; the ste
 
 ## 13. ML service
 
+> This section is the overview. **`MODEL.md` is the full document** — model card, the 44 features
+> with formulas, label derivation, training, exactly what the reported metrics mean, the serving
+> contract, the degradation matrix, parity testing, complete limitations, and prepared answers for a
+> review.
+
 ### Flow
 
 ```
@@ -1217,6 +1222,7 @@ and is never presented as model confidence. The UI always shows which source pro
 |---|---|
 | `README.md` | downloader quick start, run guide, troubleshooting, env vars, layout, tests |
 | `soul.md` | this file — the complete single-reference document |
+| `MODEL.md` | **the ML model in full**: model card, the 44 features, label derivation, training, what the reported metrics actually mean, serving contract, degradation matrix, parity testing, limitations, and answers to review questions |
 | `docs/API.md` | endpoint reference including registration, Super Admin and account help |
 | `docs/ARCHITECTURE.md` | request lifecycle, auth model, permission matrix, workflows, security baseline |
 | `docs/ML_ARCHITECTURE.md` | 44-feature contract, Express→FastAPI flow, degradation modes, limitations |
